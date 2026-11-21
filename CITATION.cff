@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the software and its accompanying article. First-release metadata remain provisional; the DOI is an intentional placeholder until a separately authorized release."
+message: "Please cite the software and its accompanying article. The Zenodo DOI remains an intentional placeholder pending verified identifier finalization in a separately authorized update."
 type: software
 title: "A180215: exact enumeration of fourth-order binomial window permutations"
 abstract: "C17 depth-first enumeration and separate C++ weighted-state validation of OEIS A180215 through n=30, with an original-definition checker through n=24, exact data and original execution evidence."

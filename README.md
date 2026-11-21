@@ -8,13 +8,14 @@ exact production/validation sources, canonical results and essential small
 execution records. Intermediate tables and journals are regenerated as needed.
 Repository: `https://github.com/carcorti/A180215`.
 
-Publication stage: **SOURCE PACKAGE — NO TAGGED RELEASE**.
-Sources and data are provided on the repository's default branch.
-Version `v1.0` and the date in `CITATION.cff` remain intended release metadata.
+Release: **[v1.0](https://github.com/carcorti/A180215/releases/tag/v1.0)**.
+Sources and data are available in the versioned release and on the default branch.
+Version `v1.0` and the date in `CITATION.cff` identify this first GitHub release.
 `10.5281/zenodo.xxxxxxxx` is an intentional DOI placeholder. The reviewed TeX v3
 is preserved byte for byte, including its pre-publication availability wording.
-No tagged release or Zenodo deposit is claimed. The first release and its
-Zenodo publication are separate, explicitly authorized steps.
+Zenodo archival synchronization is enabled for this repository. A verified
+official DOI will replace the placeholder in a separately authorized
+post-publication update; this release does not assert a specific Zenodo DOI.
 
 ## Definition and coverage
 
