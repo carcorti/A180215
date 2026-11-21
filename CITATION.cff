@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "Please cite the software and its accompanying article. First-release metadata remain provisional; the DOI is an intentional placeholder until a separately authorized release."
+type: software
+title: "A180215: exact enumeration of fourth-order binomial window permutations"
+abstract: "C17 depth-first enumeration and separate C++ weighted-state validation of OEIS A180215 through n=30, with an original-definition checker through n=24, exact data and original execution evidence."
+authors:
+  - family-names: Corti
+    given-names: Carlo
+    email: carlo.corti@outlook.com
+version: v1.0
+date-released: 2026-11-21
+license: MIT
+repository-code: https://github.com/carcorti/A180215
+url: https://doi.org/10.5281/zenodo.xxxxxxxx
+doi: 10.5281/zenodo.xxxxxxxx
+keywords:
+  - OEIS
+  - A180215
+  - permutations
+  - binomial windows
+  - exact enumeration
+  - dynamic programming
+preferred-citation:
+  type: article
+  title: "Permutations from Fourth-Order Binomial Window Sums: OEIS A180215 through n=30"
+  authors:
+    - family-names: Corti
+      given-names: Carlo
+      email: carlo.corti@outlook.com
+  year: 2026
+  doi: 10.5281/zenodo.xxxxxxxx
+  url: https://doi.org/10.5281/zenodo.xxxxxxxx

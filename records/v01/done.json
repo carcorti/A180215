@@ -1,0 +1,224 @@
+{
+  "outcome": "VALIDATED_STOP30",
+  "call_sha256": "7a8ab4c01f0b6358ed087b77f3b8a665618267a8cabea476995cc0c1042baa87",
+  "native_work": {
+    "command": [
+      "/home/carlo/MATH/OEIS/A180215/check/state",
+      "next",
+      "/home/carlo/MATH/OEIS/A180215/runs/n30",
+      "3000",
+      "300"
+    ],
+    "returncode": 0,
+    "wall_seconds": 110.36317031099952,
+    "cpu_seconds": 109.250496,
+    "peak_RSS_bytes": 977747968
+  },
+  "native_state": {
+    "N": 30,
+    "phase": 2,
+    "events": 143137713,
+    "discardable_EOF_bytes": 0,
+    "independent_validation": "NOT_ASSESSED_BY_PRODUCER"
+  },
+  "rows": [
+    [
+      1,
+      "1"
+    ],
+    [
+      2,
+      "2"
+    ],
+    [
+      3,
+      "2"
+    ],
+    [
+      4,
+      "0"
+    ],
+    [
+      5,
+      "0"
+    ],
+    [
+      6,
+      "0"
+    ],
+    [
+      7,
+      "0"
+    ],
+    [
+      8,
+      "0"
+    ],
+    [
+      9,
+      "0"
+    ],
+    [
+      10,
+      "0"
+    ],
+    [
+      11,
+      "0"
+    ],
+    [
+      12,
+      "0"
+    ],
+    [
+      13,
+      "0"
+    ],
+    [
+      14,
+      "0"
+    ],
+    [
+      15,
+      "0"
+    ],
+    [
+      16,
+      "0"
+    ],
+    [
+      17,
+      "12"
+    ],
+    [
+      18,
+      "48"
+    ],
+    [
+      19,
+      "176"
+    ],
+    [
+      20,
+      "444"
+    ],
+    [
+      21,
+      "420"
+    ],
+    [
+      22,
+      "2124"
+    ],
+    [
+      23,
+      "8056"
+    ],
+    [
+      24,
+      "12944"
+    ],
+    [
+      25,
+      "33572"
+    ],
+    [
+      26,
+      "50880"
+    ],
+    [
+      27,
+      "181968"
+    ],
+    [
+      28,
+      "464508"
+    ],
+    [
+      29,
+      "1150932"
+    ],
+    [
+      30,
+      "3209944"
+    ]
+  ],
+  "scenario_breaches": [],
+  "small_hashes": {
+    "cfg.json": "b1acb979c20465de18a1b7533ff56bf4f65edf921491ad59ae02720c28250e65",
+    "res.tsv": "7a674eb2500a2b8d07a6a9f215e89d9374c5ecb22a7934f48d8a92c9a32e4510",
+    "val.tsv": "247d00a5b01ab232c0e01bf7ce9a967d815ee703b84e15e8cebb915e9cf71c59",
+    "done.json": "56b2a516805281ce56a2ce355ddf259ced0368ba28d9b921f94532e5433cb53d"
+  },
+  "finished_utc": "2026-11-20T14:54:56.223210+00:00",
+  "wall_seconds": 119.36224755100011,
+  "logs": [
+    {
+      "command": [
+        "/home/carlo/MATH/OEIS/A180215/src/a180215",
+        "status",
+        "/home/carlo/MATH/OEIS/A180215/runs/n30"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.3439437779998116,
+      "cpu_seconds": 0.34321999999999997,
+      "peak_RSS_bytes": 19894272,
+      "stdout": "{\"N\":30,\"phase\":2,\"events\":143137713,\"discardable_EOF_bytes\":0,\"independent_validation\":\"NOT_ASSESSED_BY_PRODUCER\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/carlo/MATH/OEIS/A180215/check/state",
+        "next",
+        "/home/carlo/MATH/OEIS/A180215/runs/n30",
+        "3000",
+        "300"
+      ],
+      "returncode": 0,
+      "wall_seconds": 110.36317031099952,
+      "cpu_seconds": 109.250496,
+      "peak_RSS_bytes": 977747968
+    },
+    {
+      "command": [
+        "/home/carlo/MATH/OEIS/A180215/src/a180215",
+        "audit",
+        "/home/carlo/MATH/OEIS/A180215/runs/n30"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.110515049999776,
+      "cpu_seconds": 4.109834,
+      "peak_RSS_bytes": 19894272,
+      "stdout": "{\"N\":30,\"phase\":2,\"events\":143137713,\"discardable_EOF_bytes\":0,\"independent_validation\":\"NOT_ASSESSED_BY_PRODUCER\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/carlo/MATH/OEIS/A180215/src/a180215",
+        "status",
+        "/home/carlo/MATH/OEIS/A180215/runs/n30"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.3349664759998632,
+      "cpu_seconds": 0.334733,
+      "peak_RSS_bytes": 19894272,
+      "stdout": "{\"N\":30,\"phase\":2,\"events\":143137713,\"discardable_EOF_bytes\":0,\"independent_validation\":\"NOT_ASSESSED_BY_PRODUCER\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/carlo/MATH/OEIS/A180215/check/state",
+        "audit",
+        "/home/carlo/MATH/OEIS/A180215/runs/n30"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.20839986700048,
+      "cpu_seconds": 4.2075119999999995,
+      "peak_RSS_bytes": 19894272,
+      "stdout": "",
+      "stderr": "N=30 phase=VALIDATED next_layer=30 states=78459676 frontier=0 m=30 scan=0 elapsed=4.20627 invocation_budget=0 layer_guard=0 peak_RSS_bytes=19894272 root_bytes=9162777459 ETA=UNKNOWN stop=AUDIT_PASS\n"
+    }
+  ],
+  "manifest_sha256": "3dd6b969512e6953d6b0f20dd9cf6109fdca4c8129054db4d5da3d024dbf4046",
+  "interrupted": false
+}

@@ -1,0 +1,54 @@
+{
+  "source": "outputs/review01/receipts.json",
+  "source_sha256": "fd28d1ca8877077692809e8cc6b906e4147db4d5b45be70b973fc97571f390be",
+  "events": [
+    {
+      "id": "review01_wide",
+      "kind": "synthetic",
+      "command": [
+        "python3",
+        "-B",
+        "check/review01.py",
+        "wide"
+      ],
+      "reservation_seconds": 15.0,
+      "started_utc": "2026-11-20T14:03:26.566699+00:00",
+      "status": "EXIT",
+      "identities": {
+        "src/a180215.c": "28a20fe4224f1523e0edd7e58028148fb8a4b6a1aa9a27580ebfc83a05e2152c",
+        "src/Makefile": "8b709e02bb47baab98e2c2ea34a5f1e5b5847d18856c89ae72b229639c285de0",
+        "src/a180215": "4abe215bfeb784e28856ce4eba28312c2a2fc03188fa0ca50161413eae16d2d9",
+        "check/state.cpp": "4cc339a76cc551bdae3c4802c2e26bc1561c4255f55c42f5e3a7f1468a700cf5",
+        "check/state": "a783f463abfd00afd4f55f22c02a293073a7c42c54d057d16fbe18b3a6e98349"
+      },
+      "returncode": 0,
+      "charged_seconds": 2.1562684910004464,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"kind\": \"SYNTHETIC_NOT_SEQUENCE\",\n  \"rows\": 32,\n  \"final_decimal\": \"263130836933693530167218012160000000\",\n  \"output_bytes\": {\n    \"res.tsv\": 766,\n    \"check.bin\": 1056,\n    \"done.json\": 473,\n    \"val.tsv\": 1146\n  },\n  \"production_routines_included_unchanged\": true,\n  \"no_enumeration\": true,\n  \"compiler_time_included_in_synthetic_booking\": true,\n  \"logs\": [\n    {\n      \"command\": [\n        \"gcc-13\",\n        \"-std=c17\",\n        \"-O3\",\n        \"-Wall\",\n        \"-Wextra\",\n        \"-Wpedantic\",\n        \"-Wshadow\",\n        \"-Wconversion\",\n        \"-Wformat=2\",\n        \"-Werror\",\n        \"-Wdouble-promotion\",\n        \"-Wstrict-prototypes\",\n        \"-D_FILE_OFFSET_BITS=64\",\n        \"check/review01.c\",\n        \"-o\",\n        \"/tmp/a215-r01-v72keg6s/c\",\n        \"-lcrypto\",\n        \"-ldl\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"\",\n      \"stderr\": \"\",\n      \"seconds\": 0.5609612759999436\n    },\n    {\n      \"command\": [\n        \"g++-13\",\n        \"-std=c++17\",\n        \"-O3\",\n        \"-Wall\",\n        \"-Wextra\",\n        \"-Wpedantic\",\n        \"-Wshadow\",\n        \"-Wconversion\",\n        \"-Wformat=2\",\n        \"-Werror\",\n        \"check/review01.cpp\",\n        \"-o\",\n        \"/tmp/a215-r01-v72keg6s/cpp\",\n        \"-lcrypto\",\n        \"-ldl\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"\",\n      \"stderr\": \"\",\n      \"seconds\": 1.5544601179999518\n    },\n    {\n      \"command\": [\n        \"/tmp/a215-r01-v72keg6s/c\",\n        \"/tmp/a215-r01-v72keg6s/output\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"SYNTHETIC_NOT_SEQUENCE producer output PASS\\n\",\n      \"stderr\": \"\",\n      \"seconds\": 0.004405208999742172\n    },\n    {\n      \"command\": [\n        \"/tmp/a215-r01-v72keg6s/cpp\",\n        \"/tmp/a215-r01-v72keg6s/output\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"SYNTHETIC_NOT_SEQUENCE checker output PASS\\n\",\n      \"stderr\": \"\",\n      \"seconds\": 0.008740636000766244\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": "review01_oracle",
+      "kind": "known",
+      "command": [
+        "python3",
+        "-B",
+        "check/review01.py",
+        "independent"
+      ],
+      "reservation_seconds": 15.0,
+      "started_utc": "2026-11-20T14:04:19.957261+00:00",
+      "status": "EXIT",
+      "identities": {
+        "src/a180215.c": "28a20fe4224f1523e0edd7e58028148fb8a4b6a1aa9a27580ebfc83a05e2152c",
+        "src/Makefile": "8b709e02bb47baab98e2c2ea34a5f1e5b5847d18856c89ae72b229639c285de0",
+        "src/a180215": "4abe215bfeb784e28856ce4eba28312c2a2fc03188fa0ca50161413eae16d2d9",
+        "check/state.cpp": "4cc339a76cc551bdae3c4802c2e26bc1561c4255f55c42f5e3a7f1468a700cf5",
+        "check/state": "a783f463abfd00afd4f55f22c02a293073a7c42c54d057d16fbe18b3a6e98349"
+      },
+      "returncode": 0,
+      "charged_seconds": 0.6537587519997032,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"Free-start realization-vector enumeration without zero split or F\",\n  \"range\": [\n    1,\n    24\n  ],\n  \"count24\": 12944,\n  \"all_known_values\": {\n    \"1\": 1,\n    \"2\": 2,\n    \"3\": 2,\n    \"4\": 0,\n    \"5\": 0,\n    \"6\": 0,\n    \"7\": 0,\n    \"8\": 0,\n    \"9\": 0,\n    \"10\": 0,\n    \"11\": 0,\n    \"12\": 0,\n    \"13\": 0,\n    \"14\": 0,\n    \"15\": 0,\n    \"16\": 0,\n    \"17\": 12,\n    \"18\": 48,\n    \"19\": 176,\n    \"20\": 444,\n    \"21\": 420,\n    \"22\": 2124,\n    \"23\": 8056,\n    \"24\": 12944\n  },\n  \"fixed_ceiling24\": true,\n  \"no_new_term\": true,\n  \"instrument_sha256\": \"8c9d53b01cdc92f04c344b2b8d315a110249d167f5d9b049000e79da9fb4a5b8\",\n  \"original_instrument_sha256\": \"35f88e7b4df2ee482e80be4b8a5ea778d5018a9482f74a0c0e7f8b2320b6b5c9\",\n  \"logs\": [\n    {\n      \"command\": [\n        \"gcc-13\",\n        \"-O3\",\n        \"-std=c17\",\n        \"-Wall\",\n        \"-Wextra\",\n        \"-Werror\",\n        \"check/oracle24.c\",\n        \"-o\",\n        \"/tmp/a215-r01-0nuk_g5o/oracle\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"\",\n      \"stderr\": \"\",\n      \"seconds\": 0.05875814099999843\n    },\n    {\n      \"command\": [\n        \"/tmp/a215-r01-0nuk_g5o/oracle\"\n      ],\n      \"returncode\": 0,\n      \"stdout\": \"n= 1 distinct_permutations=1\\nn= 2 distinct_permutations=2\\nn= 3 distinct_permutations=2\\nn= 4 distinct_permutations=0\\nn= 5 distinct_permutations=0\\nn= 6 distinct_permutations=0\\nn= 7 distinct_permutations=0\\nn= 8 distinct_permutations=0\\nn= 9 distinct_permutations=0\\nn=10 distinct_permutations=0\\nn=11 distinct_permutations=0\\nn=12 distinct_permutations=0\\nn=13 distinct_permutations=0\\nn=14 distinct_permutations=0\\nn=15 distinct_permutations=0\\nn=16 distinct_permutations=0\\nn=17 distinct_permutations=12\\nn=18 distinct_permutations=48\\nn=19 distinct_permutations=176\\nn=20 distinct_permutations=444\\nn=21 distinct_permutations=420\\nn=22 distinct_permutations=2124\\nn=23 distinct_permutations=8056\\nn=24 distinct_permutations=12944\\n\",\n      \"stderr\": \"\",\n      \"seconds\": 0.5666237920004278\n    }\n  ]\n}\n",
+      "stderr": ""
+    }
+  ]
+}

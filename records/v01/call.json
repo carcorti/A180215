@@ -1,0 +1,38 @@
+{
+  "maximum": 30,
+  "action": "verify",
+  "started_utc": "2026-11-20T14:52:56.850312+00:00",
+  "operator_pid": 56235,
+  "frozen_sha256": "3dd6b969512e6953d6b0f20dd9cf6109fdca4c8129054db4d5da3d024dbf4046",
+  "resources": {
+    "MemAvailable_bytes": 60955271168,
+    "free_scratch_bytes": 701941129216,
+    "existing_job_bytes": 9162775225,
+    "memory_threshold_bytes": 12884901888,
+    "initial_scratch_envelope_bytes": 17179869184
+  },
+  "runtime": {
+    "status": "FROZEN_RUNTIME_PASS",
+    "frozen_relative_files": 7,
+    "resolved_runtime": {
+      "libcrypto.so.3": "/usr/lib/x86_64-linux-gnu/libcrypto.so.3",
+      "libc.so.6": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "ld-linux-x86-64.so.2": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "libstdc++.so.6.0.33": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+      "libgcc_s.so.1": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "libm.so.6": "/usr/lib/x86_64-linux-gnu/libm.so.6"
+    },
+    "no_build": true,
+    "no_job": true
+  },
+  "policy": "One explicit phase only; no retry, resume, next target or b-file mutation",
+  "commands": [
+    [
+      "/home/carlo/MATH/OEIS/A180215/check/state",
+      "next",
+      "/home/carlo/MATH/OEIS/A180215/runs/n30",
+      "3000",
+      "300"
+    ]
+  ]
+}

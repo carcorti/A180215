@@ -1,0 +1,225 @@
+{
+  "status": "POST30_SMALLFILE_CHECK_PASS",
+  "scope": "Stored validated bytes and receipt/row relations; no census or mathematical executable run",
+  "before_consolidation": false,
+  "verified_files": [
+    "src/a180215.c",
+    "src/Makefile",
+    "src/a180215",
+    "check/state.cpp",
+    "check/state",
+    "check/preflight.py",
+    "src_review/runtime/map.json",
+    "src_review/deps.json",
+    "src_review/ver_codice.md",
+    "outputs/post30/known24.txt",
+    "outputs/strategy/plan.json",
+    "outputs/strategy/agree.md",
+    "outputs/dev/model.json",
+    "outputs/dev/ready.json",
+    "outputs/dev/align.md",
+    "outputs/dev/measure.md",
+    "src_review/gate_rc.json",
+    "src_review/gate_rev.json",
+    "outputs/review01/decision.json",
+    "outputs/A180215_v1_review01.md",
+    "src_review/ledger_r2.json",
+    "runbooks/run30.py",
+    "runbooks/frozen.json",
+    "outputs/campaign30/p01/call.json",
+    "outputs/campaign30/p01/done.json",
+    "outputs/campaign30/v01/call.json",
+    "outputs/campaign30/v01/done.json",
+    "runs/n30/cfg.json",
+    "runs/n30/res.tsv",
+    "runs/n30/check.bin",
+    "runs/n30/val.tsv",
+    "runs/n30/done.json"
+  ],
+  "skipped_files": [
+    "runs/n30/f.bin",
+    "runs/n30/walk.bin"
+  ],
+  "historical_manifest_reconciliation": [
+    {
+      "path": "outputs/codechat/sha.txt",
+      "verified": 60,
+      "explicit_baseline_substitutions": 1
+    },
+    {
+      "path": "src_review/packet/freeze.sha",
+      "verified": 32,
+      "explicit_baseline_substitutions": 1
+    },
+    {
+      "path": "src_review/packet_r2/freeze.sha",
+      "verified": 42,
+      "explicit_baseline_substitutions": 1
+    },
+    {
+      "path": "runbooks/sha.txt",
+      "verified": 29,
+      "explicit_baseline_substitutions": 1
+    }
+  ],
+  "rows": [
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      7,
+      0
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      9,
+      0
+    ],
+    [
+      10,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      13,
+      0
+    ],
+    [
+      14,
+      0
+    ],
+    [
+      15,
+      0
+    ],
+    [
+      16,
+      0
+    ],
+    [
+      17,
+      12
+    ],
+    [
+      18,
+      48
+    ],
+    [
+      19,
+      176
+    ],
+    [
+      20,
+      444
+    ],
+    [
+      21,
+      420
+    ],
+    [
+      22,
+      2124
+    ],
+    [
+      23,
+      8056
+    ],
+    [
+      24,
+      12944
+    ],
+    [
+      25,
+      33572
+    ],
+    [
+      26,
+      50880
+    ],
+    [
+      27,
+      181968
+    ],
+    [
+      28,
+      464508
+    ],
+    [
+      29,
+      1150932
+    ],
+    [
+      30,
+      3209944
+    ]
+  ],
+  "new_rows": [
+    [
+      25,
+      33572
+    ],
+    [
+      26,
+      50880
+    ],
+    [
+      27,
+      181968
+    ],
+    [
+      28,
+      464508
+    ],
+    [
+      29,
+      1150932
+    ],
+    [
+      30,
+      3209944
+    ]
+  ],
+  "F_bytes": 8589934592,
+  "scientific_bytes": 9162777459,
+  "checkpoint_counters": {
+    "states": 78459676,
+    "transitions": 84536537,
+    "peak_records": 11416082
+  },
+  "bfile_sha256": "575f2da725c25288087bfe9cd33b79a5b96e61c079c9575ee1676e84132f1695",
+  "data_rows": 30,
+  "physical_lines": 31,
+  "wall_seconds": 0.024601304000498203,
+  "inherited_math": "Carlo executed full C++ coefficient/ordered-sum census on this exact frozen C output; shared zero-anchor/kernel disclosed. This check hashes/reconciles bytes, not a third enumeration."
+}

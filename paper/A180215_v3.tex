@@ -1,0 +1,539 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{pdftitle={Permutations from Fourth-Order Binomial Window Sums},
+  pdfauthor={Carlo Corti},pdfsubject={Exact enumeration of OEIS A180215 through n=30}}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\NN}{\mathbb Z_{\geq 0}}
+\newcommand{\rev}{\operatorname{rev}}
+\title{Permutations from Fourth-Order Binomial Window Sums:\\[2pt]
+OEIS A180215 through \(n=30\)}
+\author{Carlo Corti\\Independent researcher\\\texttt{carlo.corti@outlook.com}}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We count permutations of \(0,\ldots,n-1\) realized by consecutive
+weighted sums of nonnegative integers with coefficients \(1,4,6,4,1\).
+The output value zero forces five consecutive input entries to vanish.
+The rest of the input is uniquely determined, and the permutation splits
+into two outward words on complementary sets of labels. We derive an exact
+count from this decomposition and give two necessary constraints on the
+four-coordinate state of a word. Every fourth-order realizable permutation
+is also realizable for the third- and second-order kernels. A depth-first
+enumeration and a separate weighted-state dynamic program using the same
+decomposition agree coefficient by coefficient and give
+all counts through \(n=30\), extending Hardin's 24-term baseline by six
+terms, with \(a(30)=3209944\). A direct enumeration of input vectors checks
+the original definition separately through \(n=24\).
+\end{abstract}
+
+\noindent\textbf{2020 Mathematics Subject Classification.}
+Primary 05A05. Secondary 05A15, 05A19, 11Y55.
+
+\smallskip
+\noindent\textbf{Key words and phrases.}
+Permutations, binomial weights, nonnegative integer realizations,
+subset enumeration, dynamic programming, OEIS A180215.
+
+\section{The inverse problem}
+
+For \(n\geq 1\), let \(p=(p_0,\ldots,p_{n-1})\) be a permutation of
+\(\{0,\ldots,n-1\}\). A \emph{realization} of \(p\) is a vector
+\(x=(x_0,\ldots,x_{n+3})\in\NN^{n+4}\) satisfying
+\begin{equation}
+ p_i=x_i+4x_{i+1}+6x_{i+2}+4x_{i+3}+x_{i+4},
+ \qquad 0\leq i<n.
+ \label{eq:definition}
+\end{equation}
+Write \(a(n)\) for the number of permutations admitting a realization.
+A permutation and its reversal are counted separately whenever they
+differ. The entries of \(x\) may repeat.
+
+Hardin introduced this sequence as OEIS A180215 on 15 August 2010
+\cite{hardin215}. The historical data available at the start of this
+study comprised the 24 values ending with \(a(24)=12944\). These values
+appear in revision~1 of the entry history. The OEIS data mirror and the
+b-file linked from the entry, checked on 21 November 2026, give the
+same prefix \cite{hardin215}. Hardin's adjacent entries A180213 and A180214 give
+the analogous problems with kernels \(1,2,1\) and \(1,3,3,1\)
+\cite{hardin213,hardin214}. We derive a counting method for the
+fourth-order problem, compare the three sets of realizable permutations
+at fixed length, and extend the 24-term baseline through \(n=30\).
+
+\section{Cutting at the zero window}
+
+If \(p_\ell=0\), positivity of the coefficients and nonnegativity of \(x\)
+force
+\[
+ x_\ell=x_{\ell+1}=x_{\ell+2}=x_{\ell+3}=x_{\ell+4}=0.
+\]
+Starting from that window and moving right, each next equation determines
+one new rightmost entry, whose coefficient is \(1\). Moving left,
+each equation determines one new leftmost entry, also with coefficient
+\(1\). These recurrences reach both ends of the input even when
+\(\ell=0\) or \(\ell=n-1\), in which case one sweep is empty. Thus any
+realizable permutation has exactly one realization.
+
+An \emph{admissible word} \(v=(v_1,\ldots,v_k)\) consists of distinct
+positive labels for which the recurrence
+\begin{equation}
+ v_j=y_j+4y_{j-1}+6y_{j-2}+4y_{j-3}+y_{j-4},
+ \qquad 1\leq j\leq k
+ \label{eq:side}
+\end{equation}
+gives \(y_j\geq0\) at every step, including \(j=k\), starting with
+\(y_{-3}=y_{-2}=y_{-1}=y_0=0\). There is no extension condition after
+the last label. For a finite set \(S\) of positive integers, let \(F(S)\) be the
+number of admissible orderings of \(S\). The empty word gives
+\(F(\varnothing)=1\). The recurrence uses actual integer labels. For
+instance, \((4,16)\) is admissible with \((y_1,y_2)=(4,0)\), whereas
+\((1,2)\), its relative-order standardization, fails the second step.
+
+\begin{theorem}\label{thm:split}
+With \(U_m=\{1,\ldots,m\}\) and \(U_0=\varnothing\), we have
+\begin{equation}
+ a(n)=\sum_{S\subseteq U_{n-1}}F(S)\,F(U_{n-1}\setminus S)
+ \qquad (n\geq1).
+ \label{eq:sum}
+\end{equation}
+The subset \(S\) is the set of labels to the left of zero.
+\end{theorem}
+
+\begin{proof}
+Read the labels outward on each side of zero, taking
+\(v^{\mathrm L}=(p_{\ell-1},\ldots,p_0)\) and
+\(v^{\mathrm R}=(p_{\ell+1},\ldots,p_{n-1})\).
+For \(j\geq1\) on the corresponding side, put
+\(y^{\mathrm L}_j=x_{\ell-j}\) and
+\(y^{\mathrm R}_j=x_{\ell+4+j}\).
+For either side the four padded entries lie in the zero block.
+At \(i=\ell-j\) the forward window uses the left coordinates from
+\(y^{\mathrm L}_j\) down to \(y^{\mathrm L}_{j-4}\). At \(i=\ell+j\)
+it uses the right coordinates from \(y^{\mathrm R}_{j-4}\) up to
+\(y^{\mathrm R}_j\). Palindromicity gives \eqref{eq:side} in both cases.
+
+Conversely, choose a left word on \(S\) and a right word on
+\(U_{n-1}\setminus S\). With \(\ell=|S|\), place five zeros at positions
+\(\ell,\ldots,\ell+4\), put the left realization entries in reverse
+order before them, and put the right entries in outward order after them.
+The vector has \(\ell+5+(n-1-\ell)=n+4\) entries. The window at
+\(\ell\) has value zero, and its neighbours, when present, use one
+side entry and four zeros. In general the windows at \(\ell\pm j\)
+give the two recurrences just derived. The output is
+\((\rev(v^{\mathrm L}),0,v^{\mathrm R})\), with the words concatenated
+around zero. Cutting and gluing are inverse also for either empty word.
+For \(n=1\) the two words are empty and the unique realization is the
+five-entry zero vector, giving \(a(1)=1\). For fixed \(S\), the position
+of zero and the left and right choices give exactly the product in
+\eqref{eq:sum}.
+\end{proof}
+
+For \(n=3\), the words \((1)\) and \((2)\) give
+\(p=(1,0,2)\) with \(x=(1,0,0,0,0,0,2)\). Swapping the words gives
+its reversal. A second label on either side would have to be at least
+four times the first by \eqref{eq:side}. Thus if \(n\le4\), each side
+has at most one label. In particular, at \(n=4\) the two sides cannot
+hold all three positive labels, so \(a(4)=0\).
+
+Equation \eqref{eq:sum} evaluates the subset convolution of \(F\) with
+itself at the nested sets \(U_0,U_1,\ldots\).
+Subset convolution is commonly defined with one output for each subset
+\cite[Eq.~(1)]{subsetconv}. Here the two implementations evaluate only the
+required nested outputs, by direct complementary summation.
+
+\begin{proposition}\label{prop:reversal}
+For \(n>1\), reversal is a fixed-point-free involution on the realizable
+permutations. In particular, \(a(n)\) is even.
+\end{proposition}
+
+\begin{proof}
+Set \(x'_j=x_{n+3-j}\) for \(0\le j\le n+3\). Its window at \(i\)
+reads the original window at \(n-1-i\) in reverse order, with the same
+value \(p_{n-1-i}\) by palindromicity. Applying reversal twice recovers
+the original permutation. A fixed point with \(n>1\) would have equal
+first and last labels.
+\end{proof}
+
+For \(m\geq1\), \(S\) and \(U_m\setminus S\) give equal products in
+\eqref{eq:sum}. Exactly one subset in each pair omits \(m\).
+Doubling the terms indexed by those subsets accounts for both ordered
+choices of sides.
+
+\section{Four-coordinate states and exact multiplicities}
+
+Fix a maximum label \(M\) and use the universe \(U_M\).
+After a word of length \(k\), store its used set \(S\) and the four latest
+coordinates in chronological order,
+\((\alpha,\beta,\gamma,\delta)=(y_{k-3},y_{k-2},y_{k-1},y_k)\), with the same zero padding
+as in \eqref{eq:side}. The starting state is
+\((\varnothing,0,0,0,0)\). Define \(B=\alpha+4\beta+6\gamma+4\delta\).
+An unused \(v\in U_M\) can extend the word exactly when \(v\ge B\).
+Then the new coordinate is \(e=v-B\), and the new state is
+\begin{equation}
+ (S\cup\{v\},\beta,\gamma,\delta,e).
+ \label{eq:transition}
+\end{equation}
+The next word label is subject to \(B\), but the current word is already
+valid. For example, the word \((1)\) contributes to \(F(\{1\})\)
+when \(M=1\), even though the next-step bound is \(4\).
+
+\begin{proposition}\label{prop:bound}
+For a reachable state after \(k\) labels from \(U_M\),
+\begin{align}
+ 4\alpha+6\beta+4\gamma+\delta &\le M, \label{eq:last}\\
+ \sum_{v\in S}v-(15\alpha+11\beta+5\gamma+\delta)
+ &\in 16\NN. \label{eq:mass}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+For \(k>0\), the last label is
+\(y_{k-4}+4\alpha+6\beta+4\gamma+\delta\), giving \eqref{eq:last}. In the sum
+of the first \(k\) labels, each \(y_j\) with \(1\le j\le k-4\) has
+received all five weights, with sum \(16\). The four boundary coordinates
+have accumulated weights \(15,11,5,1\), respectively. Thus
+\[
+ \sum_{v\in S}v=16\sum_{j=1}^{k-4}y_j+15\alpha+11\beta+5\gamma+\delta.
+\]
+The sum over \(y_j\) is empty for \(k\le4\), and the padding gives both assertions
+for the empty word.
+\end{proof}
+
+These conditions are necessary. For example, with \(M=16\), the hypothetical
+state \((\{16\},0,0,0,0)\) satisfies both. The sole ordering on that
+set reaches \((\{16\},0,0,0,16)\), so the hypothetical state is unreachable.
+
+The dynamic program uses the exact transition \eqref{eq:transition}.
+Write \(q\) for a state, \(D(q)\) for its word multiplicity, and
+\(q\xrightarrow{v}q'\) for the legal extension by \(v\). The empty
+state has multiplicity \(1\). At every positive cardinality,
+\[
+ D(q')=\sum_{(q,v):\,q\xrightarrow{v}q'}D(q).
+\]
+Deleting the last label of a word reaching \(q'\) recovers its
+unique prefix and final transition. Conversely, each word reaching a
+predecessor \(q\) can take the indicated transition. This proves the
+recurrence by induction on \(|S|\), including when distinct words
+merge into the same state. Summing over all states with set \(S\)
+gives \(F(S)\), including states with no outgoing transition.
+
+\section{Computing and checking the side counts}
+
+\subsection{One depth-first enumeration for all prefixes}
+
+The serial C17 producer traverses the tree of admissible words on
+\(U_M\) using an explicit stack. Each node, including the empty word,
+increments its mask cell on entry, before the next-label test. The
+children are exactly the unused labels at least \(B\).
+Every edge adds one label, so the tree has depth at most \(M\).
+Truncating a word at its last label gives its unique parent, and the
+transition recovers the word from that parent and label. These facts
+establish exhaustiveness and a single visit per admissible word.
+
+The table has \(2^M\) unsigned 128-bit cells. A coefficient depends
+only on the labels of its set, so one table for \(M=29\) supplies
+all terms \(1\leq n\leq30\). For a term of length \(n\), the prefix
+size is \(m=n-1\). Bit \(v-1\) represents \(v\), and result-array
+slot \(m\) holds \(a(m+1)\).
+For \(n>1\) the producer sums products with the highest bit of
+\(U_{n-1}\) absent on one side, then doubles the sum. There are
+\(\sum_{m=1}^{M}2^{m-1}=2^M-1\) complementary pairs evaluated over
+all those prefixes. The case \(n=1\) is initialized separately.
+
+The dense storage and reduction counts are exponential in \(M\).
+The number of word visits, including the root, is
+\(W_M=\sum_{S\subseteq U_M}F(S)\). There are \(W_M-1\) tree edges.
+The producer selects children by bit set. The elementary upper bound
+\(\sum_{k=0}^M M!/(M-k)!\) includes sequences of distinct labels
+regardless of reachability. Actual work at \(M=29\) is reported
+in Table~\ref{tab:work}.
+The practical reduction comes from starting at the forced zero window,
+enumerating one-sided words and joining their counts instead of
+constructing every pair, and restricting extensions to \(v\ge B\).
+Word visits, subset cells and
+final permutations count different objects.
+
+\subsection{Separate implementation of the coefficient check}
+
+The C++17 checker shares the zero-window theorem and the kernel with the
+producer. It expands \eqref{eq:transition} by cardinality of \(S\).
+It merges equal keys in a sparse hash table with additive multiplicities,
+then sorts each completed frontier for comparison by mask. Each
+coordinate is at most the label that produced it, so five bits per
+coordinate suffice at the supported maxima \(n\le32\). With at most
+31 label bits, each state key fits in 51 bits. For each cardinality,
+the checker scans the dense table, sums all frontier weights at each
+mask of that cardinality, and compares the result with the corresponding
+producer cell. An absent mask has sum zero and is checked as such.
+This covers every cell, including \(F(\varnothing)\).
+The checker then uses the checked table to evaluate the full ordered sum
+\eqref{eq:sum} for each \(n>1\). It compares these sums and the
+initialized value \(a(1)=1\) with the producer output.
+
+The programs differ in language, traversal, state representation, accumulation,
+complementary reduction and persistence. The producer journals mask entries
+and traversal cursors, whereas the checker persists complete frontiers during
+coefficient verification and an ordered-sum cursor during reduction.
+On loading a saved frontier, the checker tests \eqref{eq:last}
+and \eqref{eq:mass} on each record. Transition generation uses the exact
+criterion \(v\ge B\) and the unused-label test. The terminal checker
+checkpoint has the final counts and counters and an empty frontier. It
+contains no earlier frontiers. The check through \(n=30\) tests the
+implementation of the common reduction. The traversal in the next
+subsection bypasses that reduction through \(n=24\).
+
+Unsigned 128-bit arithmetic is supplied by the GCC extension
+\cite{gcc128}. The bound \(F(S)\le |S|!\) follows from the number of
+orderings. Multiplicities are bounded by \(F(S)\), and nonnegative
+products and partial sums in \eqref{eq:sum} are bounded by \(a(n)\le n!\).
+In particular \(32!<2^{118}\), which bounds the counting arithmetic
+through the source limit. A synthetic fixture with factorial rows exercised
+wide-integer encoding and the output-finalization routines. On a second
+call, the file-writing routines accepted the existing results, validation
+report and completion record after comparing them byte for byte with the
+expected output.
+These are software tests on fabricated inputs. The sequence run had
+maximum \(30\).
+
+\subsection{Direct check from the original equations}
+
+A separate C program enumerates feasible starting coordinates
+\(x_0,\ldots,x_3\) with
+\(x_0+4x_1+6x_2+4x_3\le n-1\). At each step it tries the nonnegative
+choices for \(x_{i+4}\) that keep \(p_i\le n-1\), and discards repeated
+output labels. If \(i+1<n\), a necessary condition for continuation is
+\[
+ x_{i+1}+4x_{i+2}+6x_{i+3}+4x_{i+4}\le n-1.
+\]
+The left side increases with \(x_{i+4}\), so larger choices can also be
+discarded once the bound is exceeded. Every realization of
+\eqref{eq:definition} survives these tests and appears as a leaf. A
+leaf has \(n\) distinct labels in \(\{0,\ldots,n-1\}\), and uniqueness
+of the realization makes the leaf count a permutation count.
+
+This traversal starts from the original equations. The local
+code-review integration run on 20 November 2026 reproduced Hardin's
+counts for \(1\le n\le24\) with the bounded C program. The source,
+build command and complete output are retained. Earlier Python
+attempts at \(n=24\) were incomplete. For \(25\le n\le30\) the
+verification is the coefficient comparison and ordered reduction
+described above.
+
+\section{Counts through \texorpdfstring{\(n=30\)}{n=30}}
+
+Corti ran the producer and the checker on 20 November 2026, with
+\(n=30\) as the chosen stopping point. The validated \(b\)-file
+contains \(1\le n\le30\). The first uncomputed index in this study is
+\(31\). The prefix through \(24\) agrees with Hardin's original
+data \cite{hardin215}. Table~\ref{tab:extension} gives the six additional
+values. The project materials are described in the availability statement
+and cited in \cite{corti}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+\(n\)    & 25 & 26 & 27 & 28 & 29 & 30 \\
+\midrule
+\(a(n)\) & 33572 & 50880 & 181968 & 464508 & 1150932 & 3209944 \\
+\bottomrule
+\end{tabular}
+\caption{Exact extension of the historical 24-term prefix, with every
+row checked by the separate coefficient census and ordered sum.}
+\label{tab:extension}
+\end{table}
+
+Both phases used one thread on an AMD Ryzen 9 7940HS (x86-64).
+The author reports Linux Mint 22.3 as the workstation distribution.
+The retained host and build records document the processor, architecture,
+GCC and G++ 13.3.0 with \texttt{-O3}, and OpenSSL 3.0.13 for
+integrity digests.
+The producer and checker took about 30 and 110 seconds, respectively.
+The total was about 140 seconds of native wall time and 138 CPU seconds.
+The two invocations, including their wrappers and post-run
+integrity audits, took about 154 seconds in total.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lr}
+\toprule
+Quantity at maximum \(n=30\) & Recorded value \\
+\midrule
+Producer word visits & \(143\,137\,713\) \\
+Checker states summed over all layers & \(78\,459\,676\) \\
+Checker transitions (state--label pairs) & \(84\,536\,537\) \\
+Largest checker frontier (records) & \(11\,416\,082\) \\
+Producer peak resident set (bytes) & \(6\,717\,906\,944\) \\
+Checker peak resident set (bytes) & \(977\,747\,968\) \\
+Logical coefficient table (bytes) & \(8\,589\,934\,592\) \\
+\bottomrule
+\end{tabular}
+\caption{Work counters and memory quantities for the completed computation.
+Checker counts come from the terminal checkpoint. The transition count
+includes one contribution for each legal extension of a state by a label,
+even when different extensions reach the same destination.}
+\label{tab:work}
+\end{table}
+
+In Table~\ref{tab:work}, \(2^{29}\) cells of 16 bytes give an \(8\)-GiB
+logical table. Peak resident memory was \(6.26\) GiB for the producer
+and \(0.91\) GiB for the checker. The producer's zero-initialized allocation
+can have pages that remain untouched during traversal, so its allocated
+size need not all be resident. The coefficient check scans the full file once
+per cardinality, requesting \(240\) GiB of logical reads at \(n=30\).
+The ordered reduction rereads each relevant prefix in paired blocks.
+These read volumes describe the algorithm's file accesses. Caching,
+sorting and checkpoint I/O also affect the observed runtime.
+
+\section{Pattern containment and lower-order kernels}
+
+Hardin's original prefix gives \(a(n)=0\) for \(4\leq n\leq16\) and
+\(a(17)=12\) \cite{hardin215}. The direct check covers this zero block.
+The following realization exhibits positivity at \(n=17\):
+\begin{align*}
+ x&=(3,0,0,0,0,0,1,0,1,0,2,0,0,2,1,0,0,0,1,1,5),\\
+ p&=(3,0,1,4,7,8,9,12,13,10,11,16,14,6,2,5,15).
+\end{align*}
+Substitution in \eqref{eq:definition} gives all 17 labels.
+Standardizing any four entries of this permutation to their relative
+ranks gives a length-four pattern. Heredity would require that pattern
+to be realizable, whereas \(a(4)=0\).
+Every count in the computed block \(17\le n\le30\) is positive,
+but the counts can decrease within it, as \(a(20)=444>a(21)=420\) shows.
+Eventual positivity and the complete set of zeros remain open here.
+
+On a vector of length \(L\ge r+1\), let \(T_r\) form the \(L-r\) windows with
+kernel \((\binom{r}{0},\ldots,\binom{r}{r})\).
+Let \(\mathcal P_r(n)\) be the permutations of \(0,\ldots,n-1\) that
+are images under \(T_r\) of nonnegative integer vectors of length \(n+r\).
+The counts at orders \(2,3,4\) are A180213, A180214 and A180215,
+respectively \cite{hardin213,hardin214,hardin215}.
+If \(p=T_s x\) for \(s>r\), put \(z=T_{s-r}x\), of length \(n+r\).
+Its entries are nonnegative integers. In the \(i\)-th window of \(T_rz\),
+the coefficient of \(x_{i+j}\) is the coefficient of \(t^j\) in
+\((1+t)^r(1+t)^{s-r}=(1+t)^s\), so \(T_rz=p\).
+Thus \(\mathcal P_4(n)\subseteq\mathcal P_3(n)\subseteq\mathcal P_2(n)\)
+and
+\[
+ a(n)\le \mathrm{A180214}(n)\le \mathrm{A180213}(n).
+\]
+Both inequalities are strict at \(n=4\), with counts \(0,2,6\) in
+the respective OEIS entries \cite{hardin215,hardin214,hardin213}.
+The inclusion uses \(z\) as an input to \(T_r\), and its entries
+may repeat. For instance, \(x=(0,0,0,0,0,1)\)
+gives \(p=(0,1)\) with quadratic intermediate vector \((0,0,0,1)\).
+The lower-order counts restrict their outputs to permutations, so this
+operator factorization does not give a composition rule for the counts.
+
+\section{Conclusion}
+
+The forced zero window reduces the count to a single table of one-sided
+orderings, with multiplicities checked by the state recurrence.
+This gives six further exact terms in the local \(b\)-file, ending at
+\(a(30)=3209944\). The binomial kernel also orders the admissible sets
+by inclusion across the three window orders.
+
+\section*{Data availability}
+
+The source and build instructions, direct-check program, canonical
+\(b\)-file, result and validation tables, and execution records are
+retained locally and may be requested from the author. The original
+coefficient table and traversal journal are retained in a lossless
+archive of approximately \(224\) MiB (\(8.53\) GiB expanded).
+Both members were verified in full. The restoration procedure was
+tested on small fixtures. Native audits
+of the original run require both members restored and matching
+source, build, executable and runtime identities. The References give
+the intended GitHub and Zenodo locators for a future release. The DOI
+placeholder will be replaced after the first Zenodo publication when the
+author supplies the verified official locator.
+
+\section*{AI use disclosure}
+
+Large language models assisted research and drafting for A180215.
+OpenAI Codex supported the work. The code and the manuscript were
+reviewed in separate rounds, with reported contributions across those
+rounds from ChatGPT, Claude, Gemini, GLM, Grok, Meta AI, MiniMax and Qwen.
+Tool names come from the project records, which did not consistently
+identify exact model versions.
+
+\smallskip
+\noindent\textbf{Mathematical analysis.}
+Codex assisted with deriving and checking the zero-window decomposition,
+the side recurrence and the necessary arithmetic constraints.
+NotebookLM was used to consult earlier projects on zero anchoring,
+state multiplicities and checks from the original definition.
+The claims are supported by the proofs and checked against the source
+definition and historical OEIS data.
+
+\smallskip
+\noindent\textbf{Algorithm and code.}
+Codex assisted with implementation and validation design.
+The bounded direct C check was adapted from a MiniMax-supplied program
+and executed during local code-review integration. Corti ran the frozen
+producer and C++ checker.
+The numerical claims rest on the local result tables, canonical
+\(b\)-file, validator and execution records. The validators do not use
+conversational assertions.
+
+\smallskip
+\noindent\textbf{Manuscript.}
+Codex assisted with drafting, checking the exposition against the sources
+and adjudicating the external manuscript reviews. The author takes full scientific
+responsibility for the mathematical statements, algorithm, implementation,
+numerical results, validation boundaries and conclusions.
+
+\clearpage
+\begin{thebibliography}{9}
+\sloppy\raggedright
+\bibitem{subsetconv}
+A.~Bj\"orklund, T.~Husfeldt, P.~Kaski, and M.~Koivisto,
+Fourier meets M\"obius: fast subset convolution,
+in \emph{Proceedings of the 39th Annual ACM Symposium on Theory of Computing},
+ACM, 2007, pp.~67--74.
+\href{https://www.cs.helsinki.fi/u/mkhkoivi/publications/stoc-2007.pdf}{Author-hosted conference version}.
+Preprint DOI \url{https://doi.org/10.48550/arXiv.cs/0611101}.
+
+\bibitem{corti}
+C. Corti, \emph{Permutations from Fourth-Order Binomial Window Sums:
+OEIS A180215 through \(n=30\)}, GitHub repository and Zenodo archive, 2026.
+Forthcoming.
+\url{https://github.com/carcorti/A180215}\ and
+\url{https://doi.org/10.5281/zenodo.xxxxxxxx}.
+
+\bibitem{gcc128}
+Free Software Foundation, 128-bit Integers,
+\emph{Using the GNU Compiler Collection (GCC)}, version 13.3.0.
+\url{https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/_005f_005fint128.html}.
+
+\bibitem{hardin213}
+R.~H. Hardin, Sequence A180213, \emph{The On-Line Encyclopedia of
+Integer Sequences}, 15 August 2010.
+\url{https://oeis.org/A180213}.
+
+\bibitem{hardin214}
+R.~H. Hardin, Sequence A180214, \emph{The On-Line Encyclopedia of
+Integer Sequences}, 15 August 2010.
+\url{https://oeis.org/A180214}.
+
+\bibitem{hardin215}
+R.~H. Hardin, Sequence A180215, \emph{The On-Line Encyclopedia of
+Integer Sequences}, 15 August 2010.
+\url{https://oeis.org/A180215}.
+\href{https://oeis.org/history?seq=A180215}{Entry history}.
+\href{https://oeis.org/A180215/b180215.txt}{historical table}
+(accessed 21 November 2026).
+\end{thebibliography}
+
+\end{document}
