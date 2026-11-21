@@ -8,14 +8,13 @@ exact production/validation sources, canonical results and essential small
 execution records. Intermediate tables and journals are regenerated as needed.
 Repository: `https://github.com/carcorti/A180215`.
 
-Release: **[v1.0](https://github.com/carcorti/A180215/releases/tag/v1.0)**.
+Release: **[v1.0.1](https://github.com/carcorti/A180215/releases/tag/v1.0.1)**.
 Sources and data are available in the versioned release and on the default branch.
-Version `v1.0` and the date in `CITATION.cff` identify this first GitHub release.
-`10.5281/zenodo.xxxxxxxx` is an intentional DOI placeholder. The reviewed TeX v3
-is preserved byte for byte, including its pre-publication availability wording.
-Zenodo archival synchronization is enabled for this repository. A verified
-official DOI will replace the placeholder in a separately authorized
-post-publication update; this release does not assert a specific Zenodo DOI.
+Version `v1.0.1` and the date in `CITATION.cff` identify this release.
+Release-series DOI: **[10.5281/zenodo.24424435](https://doi.org/10.5281/zenodo.24424435)**.
+This concept DOI covers the Zenodo release series; each deposit also has its
+own version-specific DOI. The manuscript is supplied as a monolithic TeX source
+and a matching PDF, with confirmed repository and archive locators.
 
 ## Definition and coverage
 
@@ -43,7 +42,7 @@ completed objective of 30.
 
 | Path | Reproduction or evidence role |
 |---|---|
-| `paper/A180215_v3.tex` | Reviewed monolithic manuscript with inline bibliography, no external figures or scientific includes |
+| `paper/A180215.tex`, `paper/A180215.pdf` | Monolithic manuscript with inline bibliography and matching PDF; no external figures or scientific includes |
 | `src/a180215.c`, `src/Makefile` | Exact C17 producer and original compiler/linker flags |
 | `check/state.cpp` | Separate C++17 weighted-state coefficient census and full ordered reduction |
 | `check/oracle24.c` | Original-definition direct enumeration, fixed at 1..24; adapted from the MiniMax review contribution |
@@ -55,11 +54,12 @@ completed objective of 30.
 | `records/tests.json` | Original direct-check and synthetic-fixture records, extracted with their parent receipt hash |
 | `hist/` | Historical OEIS definition and entry chronology snapshots |
 | `verify.py`, `checks.sha256` | Public source-based checks and exact payload inventory |
-| `CITATION.cff`, `LICENSE` | Citation metadata and existing author-approved MIT license |
+| `CITATION.cff`, `LICENSE`, `.gitignore` | Citation metadata, existing author-approved MIT license and exclusions for generated/private artifacts |
 
-Scientific sources, Makefile, original numerical fixtures, data, manuscript and
-retained run records preserve their original bytes. Publication container names
-were shortened. Absolute paths and other inputs named inside old records are
+Scientific sources, Makefile, original numerical fixtures, data and retained
+run records preserve their original bytes. The manuscript finalization updates
+publication locators and availability while preserving the scientific text,
+proofs and numerical tables. Absolute paths and other inputs named inside old records are
 historical provenance, not dependencies of the public commands. The small
 terminal checkpoint contains final answers/counters, with no earlier frontiers.
 
@@ -69,7 +69,7 @@ package, together with historical binaries, bundled system libraries and private
 restore tools. The public route builds from source and generates its own data.
 This package does not promise access to the exact original large-state bytes.
 
-Private reviews, obsolete drafts/PDFs, forecasting/calibration debris, transport
+Private reviews, obsolete manuscript drafts, forecasting/calibration debris, transport
 duplicates and third-party papers are excluded. Bibliographic locators remain
 in the manuscript. No extra a-file supplies distinct useful content beyond the
 sequence tables and explicit manuscript witness; no certified sparse terms
@@ -112,16 +112,41 @@ the extension without private archives or old executables. The default command
 does not recompute 25..30; those original results retain their execution evidence.
 Hash reconciliation establishes byte identities, not a new enumeration.
 
-For a two-pass draft-mode manuscript check:
+For a manuscript/PDF consistency check:
 
 ```bash
 python3 -B verify.py --tex
 ```
 
 This also needs `pdflatex` and the packages in the TeX preamble (TeX Live, Latin
-Modern, AMS, Babel, geometry, booktabs, microtype and hyperref). It produces no
-PDF. Temporary builds, TeX auxiliaries and generated scientific data are removed
+Modern, AMS, Babel, geometry, booktabs, microtype and hyperref). The supplied PDF
+was built with pdfTeX 1.40.25 from TeX Live 2023/Debian. The command compiles
+three times in scratch, requires a clean final log and compares the rebuilt PDF
+byte for byte with the delivered file. Use this documented TeX/font toolchain
+for exact binary reproduction. Temporary PDFs, builds, TeX auxiliaries and generated scientific data are removed
 on completion or failure, leaving the frozen payload unchanged.
+
+## Rebuild the manuscript PDF
+
+The delivered `paper/A180215.pdf` is included in `checks.sha256` and is not
+ignored by Git. To rebuild it in an absent scratch directory, run from the
+package root:
+
+```bash
+set -eu
+test ! -e /tmp/a180215-paper
+mkdir /tmp/a180215-paper
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -output-directory /tmp/a180215-paper paper/A180215.tex
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -output-directory /tmp/a180215-paper paper/A180215.tex
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -output-directory /tmp/a180215-paper paper/A180215.tex
+```
+
+The final compilation must have no errors, warnings or overfull/underfull boxes.
+The rebuilt PDF is `/tmp/a180215-paper/A180215.pdf`; keep the TeX Live and font
+versions fixed for byte comparison with the delivered PDF. SHA-256 covers both
+the source and the delivered PDF. `.gitignore` excludes compilation products
+and local service data while leaving the PDF visible. The conventional
+`.gitignore` filename is an explicit project naming exception.
 
 ## Explicit reproduction of the extension
 

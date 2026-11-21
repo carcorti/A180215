@@ -1,0 +1,16 @@
+# Generated compilation and Python artifacts; the manuscript PDF is delivered.
+__pycache__/
+*.py[cod]
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+/src/a180215
+/check/state
+# Local scratch and original-state service data are not publication inputs.
+/tmp/
+/build/
+/archive/

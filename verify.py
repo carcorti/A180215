@@ -4,7 +4,7 @@
 All builds, regenerated scientific data and TeX auxiliaries use temporary storage.
 Default: original-definition check through 24 and fresh producer/checker through 17.
 --reproduce explicitly recomputes the published range 1..30 from source.
---tex checks the monolithic manuscript in draft mode (no PDF).
+--tex rebuilds the monolithic manuscript PDF in scratch and checks byte identity.
 """
 import argparse
 import hashlib
@@ -63,7 +63,7 @@ def inventory(root=ROOT):
         need(sha(root / name) == h, 'checksum mismatch: ' + name)
         p = PurePosixPath(name)
         need(all(len(x) <= 8 for x in p.parts[:-1]), 'long directory: ' + name)
-        need(p.suffix in {'.tex', '.c', '.py'} or len(p.stem.lstrip('.')) <= 8,
+        need(name == '.gitignore' or p.suffix in {'.tex', '.c', '.py'} or len(p.stem.lstrip('.')) <= 8,
              'long ordinary basename: ' + name)
     return len(actual)
 
@@ -202,13 +202,15 @@ def bounded(root, seq, tex=False, reproduce=False):
         if tex:
             out = scratch / 'tex'
             out.mkdir()
-            for _ in range(2):
-                call(['pdflatex', '-no-shell-escape', '-draftmode', '-interaction=nonstopmode',
+            for _ in range(3):
+                call(['pdflatex', '-no-shell-escape', '-interaction=nonstopmode',
                       '-halt-on-error', '-output-directory', out,
-                      root / 'paper/A180215_v3.tex'], scratch)
-            log = (out / 'A180215_v3.log').read_text(errors='replace')
-            need('undefined references' not in log and 'multiply defined' not in log
-                 and not list(out.glob('*.pdf')), 'TeX references/draft-mode contract')
+                      root / 'paper/A180215.tex'], scratch)
+            log = (out / 'A180215.log').read_text(errors='replace')
+            need(not re.search(r'^(?:[^\n]*\bWarning:|pdfTeX warning\b|(?:Over|Under)full\s+\\[hv]box|!)',
+                               log, re.I | re.M)
+                 and (out / 'A180215.pdf').read_bytes() == (root / 'paper/A180215.pdf').read_bytes(),
+                 'TeX/PDF warnings or rebuild identity; use the documented TeX toolchain')
 
 
 def main():
@@ -225,7 +227,7 @@ def main():
                       'synthetic_wide_outputs': 'PASS (not sequence terms)',
                       'fresh_producer_and_coefficient_check_range': [1, 30 if a.reproduce else 17],
                       'private_archive_dependency': False,
-                      'tex_draft_check': a.tex,
+                      'tex_pdf_check': a.tex,
                       'full_reproduction_executed': a.reproduce}, indent=2))
 
 
